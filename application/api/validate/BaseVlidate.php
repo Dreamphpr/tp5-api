@@ -8,7 +8,8 @@
 
 namespace app\api\validate;
 
-use think\exception\ErrorException;
+use app\lib\exception\ParameterException;
+use think\Exception;
 use think\Request;
 use think\Validate;
 
@@ -22,11 +23,24 @@ class BaseVlidate extends Validate
         $params = $request->param();
         $result = $this->check($params);
         if (!$result){
-            $erron = $this->error();
-            throw new ErrorException($erron);
+            $exception = new ParameterException(
+                [
+                    // $this->error有一个问题，并不是一定返回数组，需要判断
+                    'msg' => is_array($this->error) ? implode(
+                        ';', $this->error) : $this->error,
+                ]);
+            throw $exception;
         }
         else{
             return true;
         }
+    }
+
+    protected function isPositiveInteger($value, $rule='', $data='', $field='')
+    {
+        if (is_numeric($value) && is_int($value + 0) && ($value + 0) > 0) {
+            return true;
+        }
+        return $field . '必须是正整数';
     }
 }
