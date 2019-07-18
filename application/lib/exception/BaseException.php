@@ -1,22 +1,36 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Administrator
- * Date: 2019/7/17
- * Time: 10:36
- */
-
 namespace app\lib\exception;
+use think\Exception;
 
-
-class BaseException
+/**
+ * Class BaseException
+ * 自定义异常类的基类
+ */
+class BaseException extends Exception
 {
-    //HTTP 状态码 404 200
     public $code = 400;
+    public $msg = 'invalid parameters';
+    public $errorCode = 999;
 
-    //错误具有信息
-    public $msg = '参数错误';
+    public $shouldToClient = true;
 
-    //自定义的错误码
-    public $errorCode = 10000;
+    /**
+     * 构造函数，接收一个关联数组
+     * @param array $params 关联数组只应包含code、msg和errorCode，且不应该是空值
+     */
+    public function __construct($params=[])
+    {
+        if(!is_array($params)){
+            return;
+        }
+        if(array_key_exists('code',$params)){
+            $this->code = $params['code'];
+        }
+        if(array_key_exists('msg',$params)){
+            $this->msg = $params['msg'];
+        }
+        if(array_key_exists('errorCode',$params)){
+            $this->errorCode = $params['errorCode'];
+        }
+    }
 }
