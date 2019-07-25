@@ -21,7 +21,7 @@ class BaseVlidate extends Validate
         //对参数校验
         $request = Request::instance();
         $params = $request->param();
-        $result = $this->check($params);
+        $result = $this->batch()->check($params);
         if (!$result){
             $exception = new ParameterException(
                 [
@@ -41,6 +41,20 @@ class BaseVlidate extends Validate
         if (is_numeric($value) && is_int($value + 0) && ($value + 0) > 0) {
             return true;
         }
-        return $field . '必须是正整数';
+        return false;
+    }
+
+    protected function checkIDs($value)
+    {
+        $values = explode(',',$value);
+        if (empty($values)){
+            return false;
+        }
+        foreach ($values as $value){
+            if(!$this->isPositiveInteger($value)){
+                return false;
+            }
+        }
+        return true;
     }
 }
