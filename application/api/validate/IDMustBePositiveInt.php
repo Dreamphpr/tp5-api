@@ -13,4 +13,8 @@ class IDMustBePositiveInt extends BaseVlidate
     protected $rule = [
         'id' => 'require|isPositiveInteger',
     ];
+
+    protected $message = [
+        'id'  => 'ID必须是正整数'
+    ];
 }
