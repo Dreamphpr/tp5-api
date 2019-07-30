@@ -8,4 +8,5 @@
 
     return [
         'img_prefix' => 'http://api.itd',
+        'token_expire_in' => 7200
     ];
