@@ -32,7 +32,7 @@ class Banner
      * @return  array of banner item , code 200
      * @throws  MissException
      */
-    public function getBanner($id='')
+    public function getBanner($id)
     {
         $validate = new IDMustBePositiveInt();
         $validate->goCheck();
