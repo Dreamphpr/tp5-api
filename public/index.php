@@ -13,5 +13,16 @@
 
 // 定义应用目录
 define('APP_PATH', __DIR__ . '/../application/');
+//定义日志目录
+define('LOG_PATH', __DIR__ . '/../log/');
 // 加载框架引导文件
 require __DIR__ . '/../thinkphp/start.php';
+
+//开启sql日志
+\think\Log::init([
+    'type'  => 'File',
+    // 日志保存目录
+    'path'  => LOG_PATH,
+    // 日志记录级别
+    'level' => ['sql'],
+]);
