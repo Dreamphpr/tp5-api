@@ -5,5 +5,6 @@
  * Time: 11:02
  */
 return [
-  'token_salt' => 'ASDGGfdsfdsf12121'
+    'token_salt' => 'ASDGGfdsfdsf12121',
+    'pay_back_url' => 'http://api.itd/api/v1/pay/notify'
 ];
